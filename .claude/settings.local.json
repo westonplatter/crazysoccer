@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:site.api.espn.com)",
+      "WebFetch(domain:sports.core.api.espn.com)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": []
+  }
+}

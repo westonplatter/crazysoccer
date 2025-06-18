@@ -1,5 +1,19 @@
 # README
 
+## Dev
+
+CLI tool to check token usage.
+```sh
+npx ccusage@latest
+```
+
+More soccer data
+```
+https://soccerdata.readthedocs.io/en/latest/reference/espn.html#soccerdata.ESPN
+```
+
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
