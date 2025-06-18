@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:site.api.espn.com)",
       "WebFetch(domain:sports.core.api.espn.com)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(bin/rails console:*)"
     ],
     "deny": []
   }
