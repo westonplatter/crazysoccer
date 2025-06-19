@@ -4,16 +4,18 @@ require 'json'
 class EspnApiService
   BASE_URL = 'https://site.api.espn.com/apis/site/v2/sports/soccer'.freeze
   PREMIER_LEAGUE = 'eng.1'.freeze
+  CACHE_EXPIRY = 1.hour
 
   class << self
     def fetch_teams
-      url = "#{BASE_URL}/#{PREMIER_LEAGUE}/teams"
-      response = make_request(url)
-      
-      return [] unless response
-
-      teams_data = response.dig('sports', 0, 'leagues', 0, 'teams') || []
-      teams_data.map { |team_data| Team.from_espn_data(team_data) }
+      Rails.cache.fetch('espn_teams', expires_in: CACHE_EXPIRY) do
+        url = "#{BASE_URL}/#{PREMIER_LEAGUE}/teams"
+        response = make_request(url)
+        
+        return [] unless response
+        teams_data = response.dig('sports', 0, 'leagues', 0, 'teams') || []
+        teams_data.map { |team_data| Team.from_espn_data(team_data) }
+      end
     end
 
     private

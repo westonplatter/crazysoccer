@@ -1,0 +1,273 @@
+<div class="team-details">
+  <header class="team-header">
+    <%= link_to teams_path, class: "back-link" do %>
+      ← Back to Teams
+    <% end %>
+    
+    <div class="team-title">
+      <div class="team-logo">
+        <% if @team.logo_url %>
+          <%= image_tag @team.logo_url, alt: "#{@team.display_name} logo", class: "logo-large" %>
+        <% end %>
+      </div>
+      <div class="team-name-section">
+        <h1><%= @team.display_name %></h1>
+        <p class="team-nickname"><%= @team.nickname %></p>
+        <p class="team-location"><%= @team.location %></p>
+      </div>
+    </div>
+  </header>
+
+  <div class="team-content">
+    <div class="team-info-grid">
+      <div class="info-card">
+        <h3>Team Details</h3>
+        <div class="detail-row">
+          <span class="label">Full Name:</span>
+          <span class="value"><%= @team.name %></span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Short Name:</span>
+          <span class="value"><%= @team.short_name %></span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Nickname:</span>
+          <span class="value"><%= @team.nickname %></span>
+        </div>
+        <div class="detail-row">
+          <span class="label">ESPN ID:</span>
+          <span class="value"><%= @team.espn_id %></span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Status:</span>
+          <span class="value <%= @team.active ? 'active' : 'inactive' %>">
+            <%= @team.active ? 'Active' : 'Inactive' %>
+          </span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>Team Colors</h3>
+        <div class="color-section">
+          <div class="color-item">
+            <span class="label">Primary Color:</span>
+            <div class="color-display">
+              <div class="color-swatch" style="background-color: #<%= @team.color %>;"></div>
+              <span class="color-value">#<%= @team.color %></span>
+            </div>
+          </div>
+          <div class="color-item">
+            <span class="label">Alternate Color:</span>
+            <div class="color-display">
+              <div class="color-swatch" style="background-color: #<%= @team.alternate_color %>;"></div>
+              <span class="color-value">#<%= @team.alternate_color %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>Team Logos</h3>
+        <div class="logo-section">
+          <% if @team.logo_url %>
+            <div class="logo-item">
+              <span class="label">Standard Logo:</span>
+              <%= image_tag @team.logo_url, alt: "#{@team.display_name} standard logo", class: "logo-preview" %>
+            </div>
+          <% end %>
+          <% if @team.logo_dark_url %>
+            <div class="logo-item">
+              <span class="label">Dark Logo:</span>
+              <%= image_tag @team.logo_dark_url, alt: "#{@team.display_name} dark logo", class: "logo-preview dark-bg" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .team-details {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: #666;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #333;
+  }
+
+  .team-header {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+
+  .team-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .team-logo .logo-large {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  .team-name-section h1 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 28px;
+  }
+
+  .team-nickname {
+    color: #666;
+    font-style: italic;
+    margin: 0 0 4px 0;
+    font-size: 16px;
+  }
+
+  .team-location {
+    color: #888;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .team-content {
+    margin-top: 30px;
+  }
+
+  .team-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .info-card h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 18px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 8px;
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    font-weight: 500;
+    color: #555;
+  }
+
+  .value {
+    color: #333;
+  }
+
+  .value.active {
+    color: #22c55e;
+    font-weight: 500;
+  }
+
+  .value.inactive {
+    color: #ef4444;
+    font-weight: 500;
+  }
+
+  .color-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .color-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .color-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .color-swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: 2px solid #ddd;
+  }
+
+  .color-value {
+    font-family: monospace;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .logo-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .logo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .logo-preview {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+  }
+
+  .logo-preview.dark-bg {
+    background-color: #333;
+  }
+
+  @media (max-width: 768px) {
+    .team-title {
+      flex-direction: column;
+      text-align: center;
+      gap: 15px;
+    }
+
+    .team-info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -4,7 +4,8 @@
       "WebFetch(domain:site.api.espn.com)",
       "WebFetch(domain:sports.core.api.espn.com)",
       "Bash(mkdir:*)",
-      "Bash(bin/rails console:*)"
+      "Bash(bin/rails console:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   }

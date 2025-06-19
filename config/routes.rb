@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Teams dashboard
-  resources :teams, only: [:index]
+  resources :teams, only: [:index, :show]
   
   # Defines the root path route ("/")
   root "teams#index"

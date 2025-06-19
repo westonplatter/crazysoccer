@@ -10,18 +10,19 @@ class Team
 
   # Create Team instance from ESPN API team data
   def self.from_espn_data(team_data)
+    team_info = team_data["team"]
     new(
-      espn_id: team_data["id"],
-      name: team_data["name"],
-      display_name: team_data["displayName"],
-      short_name: team_data["shortDisplayName"],
-      nickname: team_data["nickname"],
-      location: team_data["location"],
-      color: team_data["color"],
-      alternate_color: team_data["alternateColor"],
-      logo_url: team_data.dig("logos", 0, "href"),
-      logo_dark_url: team_data.dig("logos", 1, "href"),
-      active: team_data["isActive"]
+      espn_id: team_info["id"],
+      name: team_info["name"],
+      display_name: team_info["displayName"],
+      short_name: team_info["shortDisplayName"],
+      nickname: team_info["nickname"],
+      location: team_info["location"],
+      color: team_info["color"],
+      alternate_color: team_info["alternateColor"],
+      logo_url: team_info.dig("logos", 0, "href"),
+      logo_dark_url: team_info.dig("logos", 1, "href"),
+      active: team_info["isActive"]
     )
   end
 
