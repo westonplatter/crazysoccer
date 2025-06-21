@@ -1,10 +1,10 @@
 class Team
-  attr_accessor :espn_id, :name, :display_name, :short_name, :nickname, 
-                :location, :color, :alternate_color, :logo_url, :logo_dark_url, :active
+  attr_reader :espn_id, :name, :display_name, :short_name, :nickname, 
+              :location, :color, :alternate_color, :logo_url, :logo_dark_url, :active
 
   def initialize(attributes = {})
     attributes.each do |key, value|
-      send("#{key}=", value) if respond_to?("#{key}=")
+      instance_variable_set("@#{key}", value) if respond_to?(key)
     end
   end
 
@@ -32,3 +32,9 @@ class Team
     rand(1..100)
   end
 end
+
+$ git config --global user.name "Kwibe Merci"
+$ git config --global user.email kwibemerci16@gmail.com
+$ git config --global init.defaultBranch main
+$ git config --global core.editor "code --wait"
+$ git config --global pull.rebase false
