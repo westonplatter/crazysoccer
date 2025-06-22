@@ -14,7 +14,22 @@ class EspnApiService
         
         return [] unless response
         teams_data = response.dig('sports', 0, 'leagues', 0, 'teams') || []
-        teams_data.map { |team_data| Team.from_espn_data(team_data) }
+        teams_data.map do |team_data|
+          team_info = team_data["team"]
+          ::Domain::Team.new(
+            espn_id: team_info["id"],
+            name: team_info["name"],
+            display_name: team_info["displayName"],
+            short_name: team_info["shortDisplayName"],
+            nickname: team_info["nickname"],
+            location: team_info["location"],
+            color: team_info["color"],
+            alternate_color: team_info["alternateColor"],
+            logo_url: team_info.dig("logos", 0, "href"),
+            logo_dark_url: team_info.dig("logos", 1, "href"),
+            active: team_info["isActive"]
+          )
+        end
       end
     end
 
