@@ -8,11 +8,11 @@
     <% @teams.each do |team| %>
       <%= link_to team_path(team.espn_id), class: "team-card-link" do %>
         <div class="team-card">
-        <div class="position-badge">
           <% if team.position %>
-            <span class="position-number position-<%= team.position <= 4 ? 'top' : team.position >= 18 ? 'bottom' : 'middle' %>">#<%= team.position %></span>
+            <div class="position-badge">
+              <span class="position-number position-<%= team.position <= 4 ? 'top' : team.position >= 18 ? 'bottom' : 'middle' %>">#<%= team.position %></span>
+            </div>
           <% end %>
-        </div>
         <div class="team-logo">
           <% if team.logo_url %>
             <%= image_tag team.logo_url, alt: "#{team.display_name} logo", class: "logo" %>
