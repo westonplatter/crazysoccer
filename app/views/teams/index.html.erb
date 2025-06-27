@@ -8,6 +8,11 @@
     <% @teams.each do |team| %>
       <%= link_to team_path(team.espn_id), class: "team-card-link" do %>
         <div class="team-card">
+          <% if team.position %>
+            <div class="position-badge">
+              <span class="position-number position-<%= team.position <= 4 ? 'top' : team.position >= 18 ? 'bottom' : 'middle' %>">#<%= team.position %></span>
+            </div>
+          <% end %>
         <div class="team-logo">
           <% if team.logo_url %>
             <%= image_tag team.logo_url, alt: "#{team.display_name} logo", class: "logo" %>
@@ -85,6 +90,35 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s;
+    position: relative;
+  }
+
+  .position-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+  }
+
+  .position-number {
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .position-top {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  }
+
+  .position-middle {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .position-bottom {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   }
   
   .team-card-link {
