@@ -62,6 +62,31 @@ Development uses `crazysoccer_development` and test uses `crazysoccer_test`.
 - **Thruster**: HTTP/2 proxy and asset acceleration
 - **Let's Encrypt**: SSL auto-certification configured
 
+### Skinny Controllers / Service Layer
+Keep controllers thin: a controller's job is HTTP only. Business logic lives in
+services under `app/services/`.
+
+- **Controllers handle HTTP**: parse/permit params, call one service, assign for
+  the view, and map the result to a response (`render`/`redirect`/status).
+- **Services handle business logic**: ordering rules, lookups, validation,
+  orchestrating multiple objects, transactions, and side effects (external API
+  calls, emails, jobs).
+- **The litmus test**: if a piece of code could run unchanged from a job, the
+  console, or a test *without a request object*, it belongs in a service, not a
+  controller. Services must never touch `params`, `session`, `render`, or
+  `redirect`.
+- **Conventions**: name service classes by what they own (e.g.
+  `LeagueTableService`, `EspnApiService`). For query/read operations a small
+  query object with class methods is fine; reserve transaction/side-effect
+  heavy operations for a single-operation service with a `.call` entry point
+  returning a result the controller can branch on.
+- **Don't cargo-cult it**: trivial pass-through actions don't need a service —
+  reach for one when there's real ordering, lookup, orchestration, or side
+  effects.
+
+Example: `TeamsController` stays HTTP-only and delegates table ordering and
+team lookup to `LeagueTableService`, which composes `EspnApiService` for data.
+
 ## Key Files & Directories
 
 - `app/models/application_record.rb` - Base model class

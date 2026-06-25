@@ -1,14 +1,10 @@
 class TeamsController < ApplicationController
   def index
-    @teams = EspnApiService.fetch_teams
-
-    # Sort teams by league position (position 1 = first place)
-    @teams = @teams.sort_by { |team| team.position || Float::INFINITY }
+    @teams = LeagueTableService.ordered_teams
   end
 
   def show
-    @teams = EspnApiService.fetch_teams
-    @team = @teams.find { |team| team.espn_id == params[:id] }
+    @team = LeagueTableService.find_team(params[:id])
 
     redirect_to teams_path unless @team
   end
